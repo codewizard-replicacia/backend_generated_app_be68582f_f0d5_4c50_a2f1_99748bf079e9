@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Model">
+            <EntityType HasStream="true" Name="Document">
+                <Key>
+                    <PropertyRef Name="DocId"/>
+                </Key>
+                <Property Name="DocId" Type="Edm.Int64"/>
+                <Property Name="FileType" Type="Edm.String"/>
+                <Property Name="FileName" Type="Edm.String"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="BECapability">
+                <Key>
+                    <PropertyRef Name="CapabilityId"/>
+                </Key>
+                <Property Name="CapabilityId" Type="Edm.Int32"/>
+                <Property Name="Name" Type="Edm.String"/>
+                <Property Name="Description" Type="Edm.String"/>
+                <Property Name="Icon" Type="Edm.String"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="Architecture">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int32"/>
+                <Property Name="Name" Type="Edm.String"/>
+                <Property Name="Description" Type="Edm.String"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="FECapability">
+                <Key>
+                    <PropertyRef Name="CapabilityId"/>
+                </Key>
+                <Property Name="CapabilityId" Type="Edm.Int32"/>
+                <Property Name="Name" Type="Edm.String"/>
+                <Property Name="Description" Type="Edm.String"/>
+                <Property Name="Icon" Type="Edm.String"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="Capability">
+                <Key>
+                    <PropertyRef Name="CapabilityId"/>
+                </Key>
+                <Property Name="CapabilityId" Type="Edm.Int32"/>
+                <Property Name="Name" Type="Edm.String"/>
+                <Property Name="Description" Type="Edm.String"/>
+                <Property Name="Icon" Type="Edm.String"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="Industry">
+                <Key>
+                    <PropertyRef Name="IndustryId"/>
+                </Key>
+                <Property Name="IndustryId" Type="Edm.Int64"/>
+                <Property Name="IndustryName" Type="Model.IndustryType"/>
+                <Property Name="Icon" Type="Edm.String"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="User">
+                <Key>
+                    <PropertyRef Name="UserName"/>
+                </Key>
+                <Property Name="UserName" Type="Edm.String"/>
+                <Property Name="Name" Type="Edm.String"/>
+                <NavigationProperty Name="Settings" Type="Model.Settings"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="Server">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int32"/>
+                <Property Name="Name" Type="Edm.String"/>
+                <Property Name="Description" Type="Edm.String"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="ScreenFlow">
+                <Key>
+                    <PropertyRef Name="ScreenFlowId"/>
+                </Key>
+                <Property Name="ScreenFlowId" Type="Edm.Int32"/>
+                <NavigationProperty Name="Flow" Type="Collection(Model.FrontendScreen)"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="SiteMap">
+                <Key>
+                    <PropertyRef Name="SiteMapId"/>
+                </Key>
+                <Property Name="SiteMapId" Type="Edm.Int64"/>
+                <NavigationProperty Name="Flows" Type="Collection(Model.ScreenFlow)"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="FETechnology">
+                <Key>
+                    <PropertyRef Name="FeTechId"/>
+                </Key>
+                <Property Name="FeTechId" Type="Edm.Int32"/>
+                <Property Name="Name" Type="Edm.String"/>
+                <Property Name="Description" Type="Edm.String"/>
+                <Property Name="Icon" Type="Edm.String"/>
+                <Property Name="Version" Type="Edm.String"/>
+                <Property Name="FeTechnologyFeatures" Type="Collection(Edm.String)"/>
+                <NavigationProperty Name="Supported_Capabilities" Type="Collection(Model.Capability)"/>
+                <NavigationProperty Name="Supported_BETechnologies" Type="Collection(Model.BETechnology)"/>
+                <NavigationProperty Name="Screens" Type="Collection(Model.FrontendScreen)"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="ScreenFeature">
+                <Key>
+                    <PropertyRef Name="ScreenFeatureId"/>
+                </Key>
+                <Property Name="ScreenFeatureId" Type="Edm.Int32"/>
+                <Property Name="ScreenFeatureName" Type="Edm.String"/>
+                <Property Name="FeatureDescription" Type="Edm.String"/>
+                <Property Name="FeatureExplanation" Type="Edm.String"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="FrontendScreen">
+                <Key>
+                    <PropertyRef Name="FeScreenId"/>
+                </Key>
+                <Property Name="FeScreenId" Type="Edm.Int32"/>
+                <Property Name="ScreenName" Type="Edm.String"/>
+                <Property Name="ScreenDescription" Type="Edm.String"/>
+                <Property Name="Documentation" Type="Edm.String"/>
+                <Property Name="ScreenLayout" Type="Edm.String"/>
+                <NavigationProperty Name="Features" Type="Collection(Model.ScreenFeature)"/>
+                <NavigationProperty Name="ScreenshotBig" Type="Model.Document"/>
+                <NavigationProperty Name="ScreenshotSmall" Type="Model.Document"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="GitHubCreds">
+                <Key>
+                    <PropertyRef Name="GitHubCredId"/>
+                </Key>
+                <Property Name="GitHubCredId" Type="Edm.Int64"/>
+                <Property Name="UserName" Type="Edm.String"/>
+                <Property Name="Pwd" Type="Edm.String"/>
+                <Property Name="PAT" Type="Edm.String"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="BackendApp">
+                <Key>
+                    <PropertyRef Name="AppId"/>
+                </Key>
+                <Property Name="AppId" Type="Edm.Int64"/>
+                <Property Name="ProjectDetails" Type="Model.BasicDetails"/>
+                <Property Name="DbSchemaName" Type="Edm.String"/>
+                <Property Name="Advanced" Type="Model.AdvancedDetails"/>
+                <NavigationProperty Name="Model" Type="Model.ModelFile"/>
+                <NavigationProperty Name="Database" Type="Model.Database"/>
+                <NavigationProperty Name="Technology" Type="Model.BETechnology"/>
+                <NavigationProperty Name="BECapabilities" Type="Collection(Model.BECapability)"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="BuildTool">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int32"/>
+                <Property Name="Name" Type="Edm.String"/>
+                <Property Name="Description" Type="Edm.String"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="Database">
+                <Key>
+                    <PropertyRef Name="DbId"/>
+                </Key>
+                <Property Name="DbId" Type="Edm.Int32"/>
+                <Property Name="Dbname" Type="Edm.String"/>
+                <Property Name="Dbversion" Type="Edm.String"/>
+                <Property Name="Description" Type="Edm.String"/>
+                <Property Name="Icon" Type="Edm.String"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="FrontendApp">
+                <Key>
+                    <PropertyRef Name="AppId"/>
+                </Key>
+                <Property Name="AppId" Type="Edm.Int64"/>
+                <Property Name="ProjectDetails" Type="Model.BasicDetails"/>
+                <Property Name="MetaTags" Type="Collection(Edm.String)"/>
+                <Property Name="SupportedBackend" Type="Edm.String"/>
+                <Property Name="AppThemeName" Type="Edm.String"/>
+                <Property Name="Documentation" Type="Edm.String"/>
+                <NavigationProperty Name="Model" Type="Model.ModelFile"/>
+                <NavigationProperty Name="MainTechnology" Type="Model.FETechnology"/>
+                <NavigationProperty Name="Themes" Type="Collection(Model.Theme)"/>
+                <NavigationProperty Name="SiteMap" Type="Model.SiteMap"/>
+                <NavigationProperty Name="AllScreens" Type="Collection(Model.FrontendScreen)"/>
+                <NavigationProperty Name="FECapabilities" Type="Collection(Model.FECapability)"/>
+                <NavigationProperty Name="BETechnology" Type="Model.BETechnology"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="Project">
+                <Key>
+                    <PropertyRef Name="ProjectId"/>
+                </Key>
+                <Property Name="ProjectId" Type="Edm.Int64"/>
+                <Property Name="ProjectName" Type="Edm.String"/>
+                <Property Name="Version" Type="Edm.String"/>
+                <Property Name="Description" Type="Edm.String"/>
+                <Property Name="CustomerName" Type="Edm.String"/>
+                <Property Name="StartDate" Type="Edm.DateTimeOffset"/>
+                <Property Name="EndDate" Type="Edm.DateTimeOffset"/>
+                <Property Name="CustomerAccountName" Type="Edm.String"/>
+                <Property Name="ProjectLogo" Type="Edm.Binary"/>
+                <Property Name="UserNameEmail" Type="Edm.String"/>
+                <Property Name="Apptier" Type="Edm.Int32"/>
+                <Property Name="GitHubURL" Type="Edm.String"/>
+                <Property Name="RepositoryName" Type="Edm.String"/>
+                <NavigationProperty Name="BackendApps" Type="Collection(Model.BackendApp)"/>
+                <NavigationProperty Name="FrontendApps" Type="Collection(Model.FrontendApp)"/>
+                <NavigationProperty Name="GitHubCred" Type="Model.GitHubCreds"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="ModelFile">
+                <Key>
+                    <PropertyRef Name="ModelId"/>
+                </Key>
+                <Property Name="ModelId" Type="Edm.Int64"/>
+                <Property Name="ModelName" Type="Edm.String"/>
+                <Property Name="ModelDescription" Type="Edm.String"/>
+                <Property Name="Path" Type="Edm.String"/>
+                <Property Name="ModelType" Type="Model.ModelType"/>
+                <Property Name="CreatedBy" Type="Model.ModelCreator"/>
+                <Property Name="IconPath" Type="Edm.String"/>
+                <Property Name="UserName" Type="Edm.String"/>
+                <Property Name="ModelFileName" Type="Edm.String"/>
+                <Property Name="ModelFileVersion" Type="Edm.String"/>
+                <Property Name="Version" Type="Edm.String"/>
+                <NavigationProperty Name="Industry" Type="Model.Industry"/>
+                <NavigationProperty Name="File" Type="Model.Document"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="Theme">
+                <Key>
+                    <PropertyRef Name="ThemeId"/>
+                </Key>
+                <Property Name="ThemeId" Type="Edm.Int32"/>
+                <Property Name="Themename" Type="Edm.String"/>
+                <Property Name="Themedescription" Type="Edm.String"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="PackageManagement">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int32"/>
+                <Property Name="Name" Type="Edm.String"/>
+                <Property Name="Description" Type="Edm.String"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="Settings">
+                <Key>
+                    <PropertyRef Name="SettingsId"/>
+                </Key>
+                <Property Name="SettingsId" Type="Edm.Int32"/>
+                <NavigationProperty Name="GitHubAccounts" Type="Collection(Model.GitHubCreds)"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="BETechnology">
+                <Key>
+                    <PropertyRef Name="BeTechId"/>
+                </Key>
+                <Property Name="BeTechId" Type="Edm.Int32"/>
+                <Property Name="TechName" Type="Edm.String"/>
+                <Property Name="Description" Type="Edm.String"/>
+                <Property Name="Icon" Type="Edm.String"/>
+                <Property Name="Version" Type="Edm.String"/>
+                <Property Name="BeTechnologyFeatures" Type="Collection(Edm.String)"/>
+                <NavigationProperty Name="Supported_Databases" Type="Collection(Model.Database)"/>
+                <NavigationProperty Name="Supported_Capabilities" Type="Collection(Model.Capability)"/>
+            </EntityType>
+            <EntityContainer Name="Container">
+                <EntitySet Name="Documents" EntityType="Model.Document"/>
+                <EntitySet Name="BECapabilities" EntityType="Model.BECapability"/>
+                <EntitySet Name="Architectures" EntityType="Model.Architecture"/>
+                <EntitySet Name="FECapabilities" EntityType="Model.FECapability"/>
+                <EntitySet Name="Capabilities" EntityType="Model.Capability"/>
+                <EntitySet Name="Industries" EntityType="Model.Industry"/>
+                <EntitySet Name="Users" EntityType="Model.User">
+                    <NavigationPropertyBinding Path="Settings" Target="Settings"/>
+                </EntitySet>
+                <EntitySet Name="Servers" EntityType="Model.Server"/>
+                <EntitySet Name="ScreenFlows" EntityType="Model.ScreenFlow">
+                    <NavigationPropertyBinding Path="Flow" Target="FrontendScreens"/>
+                </EntitySet>
+                <EntitySet Name="SiteMaps" EntityType="Model.SiteMap">
+                    <NavigationPropertyBinding Path="Flows" Target="ScreenFlows"/>
+                </EntitySet>
+                <EntitySet Name="FETechnologies" EntityType="Model.FETechnology">
+                    <NavigationPropertyBinding Path="Supported_Capabilities" Target="Capabilities"/>
+                    <NavigationPropertyBinding Path="Supported_BETechnologies" Target="BETechnologies"/>
+                    <NavigationPropertyBinding Path="Screens" Target="FrontendScreens"/>
+                </EntitySet>
+                <EntitySet Name="ScreenFeatures" EntityType="Model.ScreenFeature"/>
+                <EntitySet Name="FrontendScreens" EntityType="Model.FrontendScreen">
+                    <NavigationPropertyBinding Path="Features" Target="ScreenFeatures"/>
+                    <NavigationPropertyBinding Path="ScreenshotBig" Target="Documents"/>
+                    <NavigationPropertyBinding Path="ScreenshotSmall" Target="Documents"/>
+                </EntitySet>
+                <EntitySet Name="GitHubCreds" EntityType="Model.GitHubCreds"/>
+                <EntitySet Name="BackendApps" EntityType="Model.BackendApp">
+                    <NavigationPropertyBinding Path="Model" Target="ModelFiles"/>
+                    <NavigationPropertyBinding Path="Database" Target="Databases"/>
+                    <NavigationPropertyBinding Path="Technology" Target="BETechnologies"/>
+                    <NavigationPropertyBinding Path="BECapabilities" Target="BECapabilities"/>
+                </EntitySet>
+                <EntitySet Name="BuildTools" EntityType="Model.BuildTool"/>
+                <EntitySet Name="Databases" EntityType="Model.Database"/>
+                <EntitySet Name="FrontendApps" EntityType="Model.FrontendApp">
+                    <NavigationPropertyBinding Path="Model" Target="ModelFiles"/>
+                    <NavigationPropertyBinding Path="MainTechnology" Target="FETechnologies"/>
+                    <NavigationPropertyBinding Path="Themes" Target="Themes"/>
+                    <NavigationPropertyBinding Path="SiteMap" Target="SiteMaps"/>
+                    <NavigationPropertyBinding Path="AllScreens" Target="FrontendScreens"/>
+                    <NavigationPropertyBinding Path="FECapabilities" Target="FECapabilities"/>
+                    <NavigationPropertyBinding Path="BETechnology" Target="BETechnologies"/>
+                </EntitySet>
+                <EntitySet Name="Projects" EntityType="Model.Project">
+                    <NavigationPropertyBinding Path="BackendApps" Target="BackendApps"/>
+                    <NavigationPropertyBinding Path="FrontendApps" Target="FrontendApps"/>
+                    <NavigationPropertyBinding Path="GitHubCred" Target="GitHubCreds"/>
+                </EntitySet>
+                <EntitySet Name="ModelFiles" EntityType="Model.ModelFile">
+                    <NavigationPropertyBinding Path="Industry" Target="Industries"/>
+                    <NavigationPropertyBinding Path="File" Target="Documents"/>
+                </EntitySet>
+                <EntitySet Name="Themes" EntityType="Model.Theme"/>
+                <EntitySet Name="PackageManagements" EntityType="Model.PackageManagement"/>
+                <EntitySet Name="Settings" EntityType="Model.Settings">
+                    <NavigationPropertyBinding Path="GitHubAccounts" Target="GitHubCreds"/>
+                </EntitySet>
+                <EntitySet Name="BETechnologies" EntityType="Model.BETechnology">
+                    <NavigationPropertyBinding Path="Supported_Databases" Target="Databases"/>
+                    <NavigationPropertyBinding Path="Supported_Capabilities" Target="Capabilities"/>
+                </EntitySet>
+            </EntityContainer>
+            <ComplexType Name="BasicDetails">
+                <Property Name="AppName" Type="Edm.String"/>
+                <Property Name="AppDescription" Type="Edm.String"/>
+                <Property Name="Namespace" Type="Edm.String"/>
+                <Property Name="PackageManagement" Type="Edm.String"/>
+                <Property Name="BuildTool" Type="Edm.String"/>
+                <Property Name="Server" Type="Edm.String"/>
+                <Property Name="Architecture" Type="Edm.String"/>
+            </ComplexType>
+            <ComplexType Name="AdvancedDetails">
+                <Property Name="CorsStatus" Type="Edm.Boolean"/>
+            </ComplexType>
+            <EnumType Name="IndustryType">
+                <Member Name="HealthCare" Value="0"/>
+                <Member Name="Ecommerce" Value="1"/>
+                <Member Name="IT" Value="2"/>
+                <Member Name="Transport" Value="3"/>
+                <Member Name="Space" Value="4"/>
+            </EnumType>
+            <EnumType Name="ModelType">
+                <Member Name="StarUML" Value="0"/>
+                <Member Name="EDMX" Value="1"/>
+            </EnumType>
+            <EnumType Name="ModelCreator">
+                <Member Name="Replicacia" Value="0"/>
+                <Member Name="User" Value="1"/>
+            </EnumType>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
